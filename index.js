@@ -29,16 +29,18 @@ app.get("/api/:date?", function (req, res) {
   let date = req.params.date
 
   if (!isNaN(Number(date)) && date.length == 13) {
+    let utc = new Date (Math.floor(date)*1000)
     return res.json({
       unix: Number(date),
-      utc: new Date(Number(date)).toUTCString()
+      utc: utc.toUTCString()
     })
   }
 
   if (new Date(date).toUTCString() != "Invalid Date") {
+    let utc = new Date(date).toUTCString()
     return res.json({
       unix: new Date(date).getTime(),
-      utc: new Date(Number(date)).toUTCString()
+      utc: utc
     })
   }
 
